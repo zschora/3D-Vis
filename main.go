@@ -7,6 +7,6 @@ import (
 )
 
 func main() {
-    app := vis.NewApplication(1080, 720)
-    app.Run()
+	app := vis.NewApplication(1080, 720)
+	app.Run()
 }

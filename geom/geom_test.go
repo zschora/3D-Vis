@@ -174,20 +174,20 @@ func TestMesh_AddVertex(t *testing.T) {
 	index3 := mesh.AddVertex(v3)
 
 	// Проверяем количество вершин в модели
-    if mesh.VertexNumber() != 3 {
-        t.Errorf("Expected 3 vertices, got %d", mesh.VertexNumber())
-    }
+	if mesh.VertexNumber() != 3 {
+		t.Errorf("Expected 3 vertices, got %d", mesh.VertexNumber())
+	}
 
-    // Проверяем, что индексы совпадают
-    if index1 != 0 {
-        t.Errorf("Expected index 0 for first vertex, got %d", index1)
-    }
-    if index2 != 1 {
-        t.Errorf("Expected index 1 for second vertex, got %d", index2)
-    }
-    if index3 != 2 {
-        t.Errorf("Expected index 2 for third vertex, got %d", index3)
-    }
+	// Проверяем, что индексы совпадают
+	if index1 != 0 {
+		t.Errorf("Expected index 0 for first vertex, got %d", index1)
+	}
+	if index2 != 1 {
+		t.Errorf("Expected index 1 for second vertex, got %d", index2)
+	}
+	if index3 != 2 {
+		t.Errorf("Expected index 2 for third vertex, got %d", index3)
+	}
 }
 
 func TestMesh_AddFace(t *testing.T) {
@@ -207,8 +207,8 @@ func TestMesh_AddFace(t *testing.T) {
 
 	// Проверка количества граней
 	if mesh.FaceNumber() != 1 {
-        t.Errorf("Expected 1 face, got %d", mesh.FaceNumber())
-    }
+		t.Errorf("Expected 1 face, got %d", mesh.FaceNumber())
+	}
 }
 
 func TestMesh_SetFaceNormal(t *testing.T) {
@@ -231,9 +231,9 @@ func TestMesh_SetFaceNormal(t *testing.T) {
 	mesh.SetFaceNormal(faceIndex, normal)
 
 	// Проверяем нормаль
-    if !normal.Equals(mesh.Normal(faceIndex)) {
-        t.Errorf("Expected normal %v, got %v", normal, mesh.Normal(faceIndex))
-    }
+	if !normal.Equals(mesh.Normal(faceIndex)) {
+		t.Errorf("Expected normal %v, got %v", normal, mesh.Normal(faceIndex))
+	}
 }
 
 func TestMesh_Vertex(t *testing.T) {
@@ -250,20 +250,20 @@ func TestMesh_Vertex(t *testing.T) {
 
 	// Добавляем грань
 	faceIndex := mesh.AddFace(index1, index2, index3)
-    
-    // Проверяем, что вершин можно правильно получить
+
+	// Проверяем, что вершин можно правильно получить
 	vertex1 := mesh.VertexInFace(faceIndex, 0)
 	vertex2 := mesh.VertexInFace(faceIndex, 1)
 	vertex3 := mesh.VertexInFace(faceIndex, 2)
-    
-    // Проверка значений координат вершин
+
+	// Проверка значений координат вершин
 	if vertex1.myCoords != v1.myCoords {
-        t.Errorf("Expected vertex1 to be %v, got %v", v1.myCoords, vertex1.myCoords)
-    }
-    if vertex2.myCoords != v2.myCoords {
-        t.Errorf("Expected vertex2 to be %v, got %v", v2.myCoords, vertex2.myCoords)
-    }
-    if vertex3.myCoords != v3.myCoords {
-        t.Errorf("Expected vertex3 to be %v, got %v", v3.myCoords, vertex3.myCoords)
-    }
+		t.Errorf("Expected vertex1 to be %v, got %v", v1.myCoords, vertex1.myCoords)
+	}
+	if vertex2.myCoords != v2.myCoords {
+		t.Errorf("Expected vertex2 to be %v, got %v", v2.myCoords, vertex2.myCoords)
+	}
+	if vertex3.myCoords != v3.myCoords {
+		t.Errorf("Expected vertex3 to be %v, got %v", v3.myCoords, vertex3.myCoords)
+	}
 }
