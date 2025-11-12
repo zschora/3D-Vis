@@ -1,5 +1,7 @@
 package gui
 
+import rl "github.com/gen2brain/raylib-go/raylib"
+
 // ControlPanel provides camera control buttons
 type ControlPanel struct {
 	panel         Panel
@@ -32,37 +34,53 @@ func NewControlPanel(config ControlPanelConfig, callbacks ControlCallbacks) *Con
 
 	panel := NewPanel(panelConfig).(*panel)
 
-	// Create buttons
+	// Create buttons with better styling
 	resetButton := NewButton(ButtonConfig{
-		X:      config.X + 10,
-		Y:      config.Y + 10,
-		Width:  180,
-		Height: 30,
-		Text:   "Reset Camera",
+		X:           config.X + 10,
+		Y:           config.Y + 10,
+		Width:       180,
+		Height:      30,
+		Text:        "Reset Camera",
+		NormalColor: rl.NewColor(60, 60, 60, 255),
+		HoverColor:  rl.NewColor(80, 80, 80, 255),
+		TextColor:   rl.White,
+		FontSize:    14,
 	})
 
 	rotateButton := NewButton(ButtonConfig{
-		X:      config.X + 10,
-		Y:      config.Y + 50,
-		Width:  180,
-		Height: 30,
-		Text:   "Toggle Rotate",
+		X:           config.X + 10,
+		Y:           config.Y + 50,
+		Width:       180,
+		Height:      30,
+		Text:        "Toggle Rotate",
+		NormalColor: rl.NewColor(60, 60, 60, 255),
+		HoverColor:  rl.NewColor(80, 80, 80, 255),
+		TextColor:   rl.White,
+		FontSize:    14,
 	})
 
 	zoomInButton := NewButton(ButtonConfig{
-		X:      config.X + 10,
-		Y:      config.Y + 90,
-		Width:  85,
-		Height: 30,
-		Text:   "Zoom In",
+		X:           config.X + 10,
+		Y:           config.Y + 90,
+		Width:       85,
+		Height:      30,
+		Text:        "Zoom In",
+		NormalColor: rl.NewColor(60, 60, 60, 255),
+		HoverColor:  rl.NewColor(80, 80, 80, 255),
+		TextColor:   rl.White,
+		FontSize:    14,
 	})
 
 	zoomOutButton := NewButton(ButtonConfig{
-		X:      config.X + 105,
-		Y:      config.Y + 90,
-		Width:  85,
-		Height: 30,
-		Text:   "Zoom Out",
+		X:           config.X + 105,
+		Y:           config.Y + 90,
+		Width:       85,
+		Height:      30,
+		Text:        "Zoom Out",
+		NormalColor: rl.NewColor(60, 60, 60, 255),
+		HoverColor:  rl.NewColor(80, 80, 80, 255),
+		TextColor:   rl.White,
+		FontSize:    14,
 	})
 
 	// Add buttons to panel

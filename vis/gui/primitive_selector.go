@@ -1,5 +1,7 @@
 package gui
 
+import rl "github.com/gen2brain/raylib-go/raylib"
+
 // PrimitiveType represents the type of 3D primitive
 type PrimitiveType int
 
@@ -44,21 +46,29 @@ func NewPrimitiveSelector(config PrimitiveSelectorConfig, onChange func(Primitiv
 
 	panel := NewPanel(panelConfig).(*panel)
 
-	// Create buttons
+	// Create buttons with better styling
 	cubeButton := NewButton(ButtonConfig{
-		X:      config.X + 10,
-		Y:      config.Y + 10,
-		Width:  180,
-		Height: 30,
-		Text:   "Cube",
+		X:           config.X + 10,
+		Y:           config.Y + 10,
+		Width:       180,
+		Height:      30,
+		Text:        "Cube",
+		NormalColor: rl.NewColor(60, 60, 60, 255),
+		HoverColor:  rl.NewColor(80, 80, 80, 255),
+		TextColor:   rl.White,
+		FontSize:    14,
 	})
 
 	tetraButton := NewButton(ButtonConfig{
-		X:      config.X + 10,
-		Y:      config.Y + 50,
-		Width:  180,
-		Height: 30,
-		Text:   "Tetrahedron",
+		X:           config.X + 10,
+		Y:           config.Y + 50,
+		Width:       180,
+		Height:      30,
+		Text:        "Tetrahedron",
+		NormalColor: rl.NewColor(60, 60, 60, 255),
+		HoverColor:  rl.NewColor(80, 80, 80, 255),
+		TextColor:   rl.White,
+		FontSize:    14,
 	})
 
 	// Add buttons to panel

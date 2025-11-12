@@ -1,5 +1,7 @@
 package gui
 
+import rl "github.com/gen2brain/raylib-go/raylib"
+
 // MotionType represents the type of camera motion
 type MotionType int
 
@@ -56,45 +58,65 @@ func NewMotionSelector(config MotionSelectorConfig, onChange func(MotionType)) *
 
 	panel := NewPanel(panelConfig).(*panel)
 
-	// Create buttons
+	// Create buttons with better styling
 	noneButton := NewButton(ButtonConfig{
-		X:      config.X + 10,
-		Y:      config.Y + 10,
-		Width:  180,
-		Height: 30,
-		Text:   "None",
+		X:           config.X + 10,
+		Y:           config.Y + 10,
+		Width:       180,
+		Height:      30,
+		Text:        "None",
+		NormalColor: rl.NewColor(60, 60, 60, 255),
+		HoverColor:  rl.NewColor(80, 80, 80, 255),
+		TextColor:   rl.White,
+		FontSize:    14,
 	})
 
 	rotateButton := NewButton(ButtonConfig{
-		X:      config.X + 10,
-		Y:      config.Y + 50,
-		Width:  180,
-		Height: 30,
-		Text:   "Rotate",
+		X:           config.X + 10,
+		Y:           config.Y + 50,
+		Width:       180,
+		Height:      30,
+		Text:        "Rotate",
+		NormalColor: rl.NewColor(60, 60, 60, 255),
+		HoverColor:  rl.NewColor(80, 80, 80, 255),
+		TextColor:   rl.White,
+		FontSize:    14,
 	})
 
 	zoomButton := NewButton(ButtonConfig{
-		X:      config.X + 10,
-		Y:      config.Y + 90,
-		Width:  180,
-		Height: 30,
-		Text:   "Zoom",
+		X:           config.X + 10,
+		Y:           config.Y + 90,
+		Width:       180,
+		Height:      30,
+		Text:        "Zoom",
+		NormalColor: rl.NewColor(60, 60, 60, 255),
+		HoverColor:  rl.NewColor(80, 80, 80, 255),
+		TextColor:   rl.White,
+		FontSize:    14,
 	})
 
 	rotateZoomButton := NewButton(ButtonConfig{
-		X:      config.X + 10,
-		Y:      config.Y + 130,
-		Width:  180,
-		Height: 30,
-		Text:   "Rotate+Zoom",
+		X:           config.X + 10,
+		Y:           config.Y + 130,
+		Width:       180,
+		Height:      30,
+		Text:        "Rotate+Zoom",
+		NormalColor: rl.NewColor(60, 60, 60, 255),
+		HoverColor:  rl.NewColor(80, 80, 80, 255),
+		TextColor:   rl.White,
+		FontSize:    14,
 	})
 
 	orbitButton := NewButton(ButtonConfig{
-		X:      config.X + 10,
-		Y:      config.Y + 170,
-		Width:  180,
-		Height: 30,
-		Text:   "Orbit",
+		X:           config.X + 10,
+		Y:           config.Y + 170,
+		Width:       180,
+		Height:      30,
+		Text:        "Orbit",
+		NormalColor: rl.NewColor(60, 60, 60, 255),
+		HoverColor:  rl.NewColor(80, 80, 80, 255),
+		TextColor:   rl.White,
+		FontSize:    14,
 	})
 
 	// Add buttons to panel

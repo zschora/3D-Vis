@@ -61,15 +61,18 @@ func (b *button) Update() bool {
 // Draw renders the button
 func (b *button) Draw() {
 	color := b.normalColor
+	borderColor := rl.NewColor(100, 100, 100, 255) // Gray border
+
 	if b.hovered {
 		color = b.hoverColor
+		borderColor = rl.NewColor(150, 150, 150, 255) // Lighter border on hover
 	}
 
 	// Draw button background
 	rl.DrawRectangleRec(b.bounds, color)
 
 	// Draw border
-	rl.DrawRectangleLinesEx(b.bounds, 2, rl.Black)
+	rl.DrawRectangleLinesEx(b.bounds, 2, borderColor)
 
 	// Draw text centered
 	if b.text != "" {
