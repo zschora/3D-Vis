@@ -3,14 +3,17 @@ package geom
 
 import "math"
 
+const (
+	// DefaultTolerance is the default tolerance for floating-point comparisons
+	DefaultTolerance = 1e-9
+)
+
 type Coords2d struct {
 	X, Y float64
 }
 
 func (c Coords2d) Equals(other Coords2d) bool {
-	tolerance := 1e-8
-
-	return c.Distance(other) < tolerance
+	return c.Distance(other) < DefaultTolerance
 }
 
 func (c Coords2d) Length() float64 {

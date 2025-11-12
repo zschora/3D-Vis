@@ -203,7 +203,10 @@ func TestMesh_AddFace(t *testing.T) {
 	index3 := mesh.AddVertex(v3)
 
 	// Добавляем грань
-	mesh.AddFace(index1, index2, index3)
+	_, err := mesh.AddFace(index1, index2, index3)
+	if err != nil {
+		t.Errorf("AddFace failed: %v", err)
+	}
 
 	// Проверка количества граней
 	if mesh.FaceNumber() != 1 {
@@ -224,15 +227,25 @@ func TestMesh_SetFaceNormal(t *testing.T) {
 	index3 := mesh.AddVertex(v3)
 
 	// Добавляем грань
-	faceIndex := mesh.AddFace(index1, index2, index3)
+	faceIndex, err := mesh.AddFace(index1, index2, index3)
+	if err != nil {
+		t.Errorf("AddFace failed: %v", err)
+	}
 
 	// Устанавливаем нормаль для грани
 	normal := NewVector(0, 0, 1)
-	mesh.SetFaceNormal(faceIndex, normal)
+	err = mesh.SetFaceNormal(faceIndex, normal)
+	if err != nil {
+		t.Errorf("SetFaceNormal failed: %v", err)
+	}
 
 	// Проверяем нормаль
-	if !normal.Equals(mesh.Normal(faceIndex)) {
-		t.Errorf("Expected normal %v, got %v", normal, mesh.Normal(faceIndex))
+	meshNormal, err := mesh.Normal(faceIndex)
+	if err != nil {
+		t.Errorf("Normal failed: %v", err)
+	}
+	if !normal.Equals(meshNormal) {
+		t.Errorf("Expected normal %v, got %v", normal, meshNormal)
 	}
 }
 
@@ -249,12 +262,19 @@ func TestMesh_Vertex(t *testing.T) {
 	index3 := mesh.AddVertex(v3)
 
 	// Добавляем грань
-	faceIndex := mesh.AddFace(index1, index2, index3)
+	faceIndex, err := mesh.AddFace(index1, index2, index3)
+	if err != nil {
+		t.Errorf("AddFace failed: %v", err)
+	}
 
 	// Проверяем, что вершин можно правильно получить
-	vertex1 := mesh.VertexInFace(faceIndex, 0)
-	vertex2 := mesh.VertexInFace(faceIndex, 1)
-	vertex3 := mesh.VertexInFace(faceIndex, 2)
+	vertex1, err1 := mesh.VertexInFace(faceIndex, 0)
+	vertex2, err2 := mesh.VertexInFace(faceIndex, 1)
+	vertex3, err3 := mesh.VertexInFace(faceIndex, 2)
+
+	if err1 != nil || err2 != nil || err3 != nil {
+		t.Errorf("VertexInFace failed: %v, %v, %v", err1, err2, err3)
+	}
 
 	// Проверка значений координат вершин
 	if vertex1.myCoords != v1.myCoords {

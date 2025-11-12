@@ -7,9 +7,12 @@ The project is currently in its early stages.
 
 ## Features
 
-- **geom library**: Geometric entities for moddleing.
-- **3D Model Rendering**: Displays a test mesh (tetrahedron) with correctly oriented faces.
+- **geom library**: Geometric entities for modeling.
+- **3D Model Rendering**: Displays 3D meshes with correctly oriented faces.
 - **Camera Control**: Includes basic camera functionalities like rotation and perspective.
+- **Flexible Architecture**: Interface-based design for easy testing and extension.
+- **Test Scene**: Built-in test scene with auto-rotation for quick development testing.
+- **GUI System**: Simple GUI with buttons, labels, and panels for application control.
 
 ---
 
@@ -32,6 +35,24 @@ The project is currently in its early stages.
    ```bash
    go run main.go
    ```
+   
+   Or run the demo with auto-rotating test scene:
+   ```bash
+   go run ./cmd/demo
+   ```
+
+---
+
+## Testing
+
+For quick testing during development, see [TESTING.md](TESTING.md).
+
+Quick start:
+```bash
+go run ./cmd/demo
+```
+
+This will launch a demo with an auto-rotating test scene.
 
 ---
 

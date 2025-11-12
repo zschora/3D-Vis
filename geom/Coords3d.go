@@ -8,11 +8,9 @@ type Coords3d struct {
 }
 
 func (c Coords3d) Equals(other Coords3d) bool {
-	tolerance := 1e-14
-
-	return math.Abs(c.X-other.X) < tolerance &&
-		math.Abs(c.Y-other.Y) < tolerance &&
-		math.Abs(c.Z-other.Z) < tolerance
+	return math.Abs(c.X-other.X) < DefaultTolerance &&
+		math.Abs(c.Y-other.Y) < DefaultTolerance &&
+		math.Abs(c.Z-other.Z) < DefaultTolerance
 }
 
 func (c Coords3d) Length() float64 {
