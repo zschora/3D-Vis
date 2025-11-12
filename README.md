@@ -1,18 +1,21 @@
 # 3D Viewer Application
 
 A Go-based application for rendering and interacting with 3D models.
-The project is currently in its early stages.
+The project provides a clean architecture for 3D visualization with a focus on extensibility and ease of use.
 
 ---
 
 ## Features
 
-- **geom library**: Geometric entities for modeling.
-- **3D Model Rendering**: Displays 3D meshes with correctly oriented faces.
-- **Camera Control**: Includes basic camera functionalities like rotation and perspective.
+- **geom library**: Geometric entities for 3D modeling (vertices, vectors, meshes, primitives).
+- **3D Model Rendering**: Displays 3D meshes with correctly oriented faces and back-face culling.
+- **Camera Control**: Polar camera system with rotation, zoom, and perspective controls.
 - **Flexible Architecture**: Interface-based design for easy testing and extension.
 - **Test Scene**: Built-in test scene with auto-rotation for quick development testing.
 - **GUI System**: Simple GUI with buttons, labels, and panels for application control.
+  - Navigation panel with reset view and zoom controls
+  - Info panel displaying FPS, camera parameters, and scene information
+  - Demo application with primitive selection and motion type controls
 
 ---
 
@@ -56,13 +59,28 @@ This will launch a demo with an auto-rotating test scene.
 
 ---
 
+## Controls
+
+### Keyboard Controls
+- **Arrow Keys**: Rotate camera (Left/Right: polar rotation, Up/Down: azimuth rotation)
+- **Q/E**: Zoom in/out
+- **ESC**: Close application
+
+### Mouse Controls
+- GUI buttons for navigation (Reset View, Zoom In/Out)
+
+---
+
 ## Roadmap
 
 - [ ] Add support for loading external 3D files (e.g., STL, OBJ).
-- [ ] Improve renderer functionality.
+- [ ] Improve renderer functionality (better face sorting, depth buffer).
 - [ ] Implement lighting and shading.
-- [ ] Improve camera controls for smoother interaction.
-- [ ] Introduce a GUI for easier user interaction.
+- [ ] Improve camera controls (mouse drag rotation, smooth zoom).
+- [x] Introduce a GUI for easier user interaction.
+- [ ] Add mesh editing capabilities (vertex manipulation, face editing).
+- [ ] Support for multiple scenes and scene management.
+- [ ] Export functionality (save rendered images, export meshes).
 
 ---
 
