@@ -8,10 +8,11 @@ import (
 
 // InfoPanel displays application information (FPS, camera info, etc.)
 type InfoPanel struct {
-	panel       Panel
-	fpsLabel    Label
-	cameraLabel Label
-	sceneLabel  Label
+	panel         Panel
+	fpsLabel      Label
+	cameraLabel   Label
+	sceneLabel    Label
+	scenarioLabel Label
 }
 
 // InfoPanelConfig holds configuration for creating an info panel
@@ -25,7 +26,7 @@ func NewInfoPanel(config InfoPanelConfig) *InfoPanel {
 	panelConfig.X = config.X
 	panelConfig.Y = config.Y
 	panelConfig.Width = 250
-	panelConfig.Height = 150
+	panelConfig.Height = 190
 
 	panel := NewPanel(panelConfig).(*panel)
 
@@ -53,15 +54,25 @@ func NewInfoPanel(config InfoPanelConfig) *InfoPanel {
 		Color:    rl.White,
 	})
 
+	scenarioLabel := NewLabel(LabelConfig{
+		X:        config.X + 10,
+		Y:        config.Y + 80,
+		Text:     "Scenario: n/a",
+		FontSize: 12,
+		Color:    rl.LightGray,
+	})
+
 	panel.AddElement(fpsLabel)
 	panel.AddElement(cameraLabel)
 	panel.AddElement(sceneLabel)
+	panel.AddElement(scenarioLabel)
 
 	return &InfoPanel{
-		panel:       panel,
-		fpsLabel:    fpsLabel,
-		cameraLabel: cameraLabel,
-		sceneLabel:  sceneLabel,
+		panel:         panel,
+		fpsLabel:      fpsLabel,
+		cameraLabel:   cameraLabel,
+		sceneLabel:    sceneLabel,
+		scenarioLabel: scenarioLabel,
 	}
 }
 
@@ -89,6 +100,11 @@ func (ip *InfoPanel) SetCameraInfo(polarAngle, azimuth, distance float64) {
 // SetSceneCount updates the scene count display
 func (ip *InfoPanel) SetSceneCount(count int) {
 	ip.sceneLabel.SetText(fmt.Sprintf("Scenes: %d", count))
+}
+
+// SetActiveScenario updates the scenario display
+func (ip *InfoPanel) SetActiveScenario(name string) {
+	ip.scenarioLabel.SetText(fmt.Sprintf("Scenario: %s", name))
 }
 
 // GetPanel returns the underlying panel

@@ -34,3 +34,6 @@ Thumbs.db
 *.so
 *.dylib
 
+# Development plans
+DEVELOPMENT_PLAN.md
+

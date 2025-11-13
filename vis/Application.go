@@ -15,6 +15,7 @@ type ApplicationConfig struct {
 	Height        int
 	Title         string
 	TargetFPS     int
+	Resizable     bool
 	Camera        CameraConfig
 	Renderer      RendererConfig
 	LoadTestScene bool             // If true, automatically loads a test scene
@@ -28,6 +29,7 @@ func DefaultApplicationConfig() ApplicationConfig {
 		Height:        720,
 		Title:         "3D Visualization App",
 		TargetFPS:     60,
+		Resizable:     true,
 		Camera:        DefaultCameraConfig(),
 		Renderer:      DefaultRendererConfig(),
 		LoadTestScene: false,
@@ -51,6 +53,10 @@ func NewApplication(config ApplicationConfig) (*Application, error) {
 	}
 	if config.TargetFPS <= 0 {
 		return nil, fmt.Errorf("target FPS must be positive, got %d", config.TargetFPS)
+	}
+
+	if config.Resizable {
+		rl.SetConfigFlags(rl.FlagWindowResizable)
 	}
 
 	rl.InitWindow(int32(config.Width), int32(config.Height), config.Title)
@@ -119,6 +125,17 @@ func (app *Application) SetUpdateFunction(fn func(deltaTime time.Duration)) {
 // GetRenderer returns the renderer
 func (app *Application) GetRenderer() Renderer {
 	return app.renderer
+}
+
+// SetRendererConfig updates renderer configuration at runtime.
+func (app *Application) SetRendererConfig(config RendererConfig) {
+	app.config.Renderer = config
+	app.renderer.SetConfig(config)
+}
+
+// GetRendererConfig returns current renderer configuration.
+func (app *Application) GetRendererConfig() RendererConfig {
+	return app.renderer.GetConfig()
 }
 
 // GetGUI returns the GUI manager

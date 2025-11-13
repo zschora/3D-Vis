@@ -39,6 +39,12 @@ type Renderer interface {
 
 	// GetCamera returns the current camera
 	GetCamera() Camera
+
+	// SetConfig replaces renderer configuration
+	SetConfig(config RendererConfig)
+
+	// GetConfig returns current renderer configuration
+	GetConfig() RendererConfig
 }
 
 // Scene defines the interface for scene management

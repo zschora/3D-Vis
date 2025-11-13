@@ -22,10 +22,16 @@ type Button interface {
 	UIElement
 	// IsClicked returns true if the button was clicked this frame
 	IsClicked() bool
+	// IsHeld returns true while the button is kept pressed
+	IsHeld() bool
 	// SetText sets the button text
 	SetText(text string)
 	// GetText returns the button text
 	GetText() string
+	// SetColors updates button colors for normal and hover states
+	SetColors(normal, hover rl.Color)
+	// SetTextColor updates the button text color
+	SetTextColor(color rl.Color)
 }
 
 // Label represents a text label

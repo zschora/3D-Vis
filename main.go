@@ -44,19 +44,7 @@ func setupNavigationGUI(app *vis.Application) {
 	navPanel := gui.NewNavigationPanel(gui.NavigationPanelConfig{
 		X: 10,
 		Y: 170,
-	}, gui.NavigationCallbacks{
-		OnReset: func() {
-			cam, _ := vis.NewCamera(vis.DefaultCameraConfig())
-			app.GetRenderer().SetCamera(cam)
-			camera = cam
-		},
-		OnZoomIn: func() {
-			camera.ScaleLinear(-50)
-		},
-		OnZoomOut: func() {
-			camera.ScaleLinear(50)
-		},
-	})
+	}, gui.NavigationCallbacks{})
 	guiManager.AddElement(navPanel.GetPanel())
 
 	// Set up update function for camera controls and GUI
@@ -73,17 +61,20 @@ func setupNavigationGUI(app *vis.Application) {
 		infoPanel.SetSceneCount(len(app.GetScenes()))
 
 		// Handle navigation panel input
-		navPanel.HandleInput(gui.NavigationCallbacks{
+		navPanel.HandleInput(deltaSeconds, gui.NavigationCallbacks{
 			OnReset: func() {
 				cam, _ := vis.NewCamera(vis.DefaultCameraConfig())
 				app.GetRenderer().SetCamera(cam)
 				camera = cam
 			},
-			OnZoomIn: func() {
-				camera.ScaleLinear(-50)
+			OnRotateHorizontal: func(amount float64) {
+				camera.RotatePolar(amount)
 			},
-			OnZoomOut: func() {
-				camera.ScaleLinear(50)
+			OnRotateVertical: func(amount float64) {
+				camera.RotateAzimuth(amount)
+			},
+			OnZoom: func(amount float64) {
+				camera.ScaleLinear(-amount)
 			},
 		})
 

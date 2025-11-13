@@ -10,6 +10,7 @@ type button struct {
 	text        string
 	clicked     bool
 	hovered     bool
+	held        bool
 	normalColor rl.Color
 	hoverColor  rl.Color
 	textColor   rl.Color
@@ -52,10 +53,14 @@ func NewButton(config ButtonConfig) Button {
 
 // Update updates the button state
 func (b *button) Update() bool {
+	b.clicked = false
+	b.held = false
+
 	mousePos := rl.GetMousePosition()
 	b.hovered = rl.CheckCollisionPointRec(mousePos, b.bounds)
 	b.clicked = b.hovered && rl.IsMouseButtonPressed(rl.MouseLeftButton)
-	return b.clicked
+	b.held = b.hovered && rl.IsMouseButtonDown(rl.MouseLeftButton)
+	return b.clicked || b.held
 }
 
 // Draw renders the button
@@ -99,6 +104,11 @@ func (b *button) IsClicked() bool {
 	return b.clicked
 }
 
+// IsHeld returns true while the button is pressed down
+func (b *button) IsHeld() bool {
+	return b.held
+}
+
 // SetText sets the button text
 func (b *button) SetText(text string) {
 	b.text = text
@@ -107,4 +117,15 @@ func (b *button) SetText(text string) {
 // GetText returns the button text
 func (b *button) GetText() string {
 	return b.text
+}
+
+// SetColors updates colors used for normal and hover states.
+func (b *button) SetColors(normal, hover rl.Color) {
+	b.normalColor = normal
+	b.hoverColor = hover
+}
+
+// SetTextColor updates the text color.
+func (b *button) SetTextColor(color rl.Color) {
+	b.textColor = color
 }

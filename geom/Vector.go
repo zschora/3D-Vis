@@ -29,6 +29,16 @@ func (v *Vector) Subtracted(other Vector) Vector {
 	return res
 }
 
+func (v *Vector) Multiply(scalar float64) {
+	v.myCoords.Scale(scalar)
+}
+
+func (v *Vector) Multiplied(scalar float64) Vector {
+	res := Vector{v.myCoords}
+	res.Multiply(scalar)
+	return res
+}
+
 func (v *Vector) Add(other Vector) {
 	v.myCoords.Add(other.myCoords)
 }
