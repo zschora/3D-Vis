@@ -128,7 +128,7 @@ func newDevPanelUI(app *vis.Application, appConfig vis.ApplicationConfig) *devPa
 	tabConfig := gui.DefaultPanelConfig()
 	tabConfig.X = margin
 	tabConfig.Y = margin
-	tabConfig.Width = 320
+	tabConfig.Width = 340
 	tabConfig.Height = tabHeight
 	tabConfig.ShowBorder = false
 	tabConfig.BackgroundColor = rl.NewColor(35, 35, 35, 220)
@@ -139,7 +139,7 @@ func newDevPanelUI(app *vis.Application, appConfig vis.ApplicationConfig) *devPa
 	ui.rendererTabButton = gui.NewButton(gui.ButtonConfig{
 		X:           tabConfig.X + 10,
 		Y:           tabConfig.Y + 16,
-		Width:       140,
+		Width:       155,
 		Height:      36,
 		Text:        "Renderer",
 		NormalColor: rl.NewColor(55, 55, 55, 255),
@@ -148,9 +148,9 @@ func newDevPanelUI(app *vis.Application, appConfig vis.ApplicationConfig) *devPa
 		FontSize:    16,
 	})
 	ui.navigationTabButton = gui.NewButton(gui.ButtonConfig{
-		X:           tabConfig.X + 160,
+		X:           tabConfig.X + 175,
 		Y:           tabConfig.Y + 16,
-		Width:       140,
+		Width:       155,
 		Height:      36,
 		Text:        "Navigation",
 		NormalColor: rl.NewColor(55, 55, 55, 255),

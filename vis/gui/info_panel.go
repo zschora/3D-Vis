@@ -25,7 +25,7 @@ func NewInfoPanel(config InfoPanelConfig) *InfoPanel {
 	panelConfig := DefaultPanelConfig()
 	panelConfig.X = config.X
 	panelConfig.Y = config.Y
-	panelConfig.Width = 250
+	panelConfig.Width = 280
 	panelConfig.Height = 190
 
 	panel := NewPanel(panelConfig).(*panel)
@@ -93,8 +93,13 @@ func (ip *InfoPanel) SetFPS(fps int32) {
 
 // SetCameraInfo updates the camera information display
 func (ip *InfoPanel) SetCameraInfo(polarAngle, azimuth, distance float64) {
-	ip.cameraLabel.SetText(fmt.Sprintf("Camera: θ=%.1f° φ=%.1f° d=%.0f",
-		polarAngle*180/3.14159, azimuth*180/3.14159, distance))
+	text := fmt.Sprintf("Camera: θ=%.1f° φ=%.1f° d=%.0f",
+		polarAngle*180/3.14159, azimuth*180/3.14159, distance)
+	if clipper, ok := ip.cameraLabel.(interface{ SetTextClipped(string, float32) }); ok {
+		clipper.SetTextClipped(text, 260)
+	} else {
+		ip.cameraLabel.SetText(text)
+	}
 }
 
 // SetSceneCount updates the scene count display
@@ -104,7 +109,12 @@ func (ip *InfoPanel) SetSceneCount(count int) {
 
 // SetActiveScenario updates the scenario display
 func (ip *InfoPanel) SetActiveScenario(name string) {
-	ip.scenarioLabel.SetText(fmt.Sprintf("Scenario: %s", name))
+	text := fmt.Sprintf("Scenario: %s", name)
+	if clipper, ok := ip.scenarioLabel.(interface{ SetTextClipped(string, float32) }); ok {
+		clipper.SetTextClipped(text, 260)
+	} else {
+		ip.scenarioLabel.SetText(text)
+	}
 }
 
 // GetPanel returns the underlying panel

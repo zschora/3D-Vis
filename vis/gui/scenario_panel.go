@@ -29,7 +29,7 @@ func NewScenarioPanel(config ScenarioPanelConfig, scenarios []Scenario, onSelect
 	panelConfig := DefaultPanelConfig()
 	panelConfig.X = config.X
 	panelConfig.Y = config.Y
-	panelConfig.Width = 280
+	panelConfig.Width = 300
 	panelConfig.Height = 360
 
 	panel := NewPanel(panelConfig).(*panel)
@@ -50,7 +50,7 @@ func NewScenarioPanel(config ScenarioPanelConfig, scenarios []Scenario, onSelect
 		btn := NewButton(ButtonConfig{
 			X:           config.X + 10,
 			Y:           buttonY + float32(i)*(buttonHeight+buttonGap),
-			Width:       260,
+			Width:       280,
 			Height:      buttonHeight,
 			Text:        scenarios[i].Name,
 			NormalColor: rl.NewColor(55, 55, 55, 255),
@@ -138,7 +138,12 @@ func (sp *ScenarioPanel) setSelected(index int) {
 
 	sp.selectedIndex = index
 	if index >= 0 {
-		sp.description.SetText(sp.scenarios[index].Description)
+		desc := sp.scenarios[index].Description
+		if clipper, ok := sp.description.(interface{ SetTextClipped(string, float32) }); ok {
+			clipper.SetTextClipped(desc, 280)
+		} else {
+			sp.description.SetText(desc)
+		}
 		if sp.onSelect != nil {
 			sp.onSelect(index)
 		}

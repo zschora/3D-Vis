@@ -114,10 +114,26 @@ func (s *Slider) Update() bool {
 // Draw renders the slider.
 func (s *Slider) Draw() {
 	labelY := s.bounds.Y + 2
-	rl.DrawText(s.label, int32(s.bounds.X), int32(labelY), s.fontSize, s.labelColor)
-
 	valueText := s.formatValue()
 	valueTextWidth := float32(rl.MeasureText(valueText, s.fontSize))
+
+	// Ensure label doesn't overlap with value
+	maxLabelWidth := s.bounds.Width - valueTextWidth - 8
+	labelText := s.label
+	labelWidth := float32(rl.MeasureText(labelText, s.fontSize))
+	if labelWidth > maxLabelWidth {
+		// Clip label if too long
+		for len(labelText) > 0 {
+			labelText = labelText[:len(labelText)-1]
+			labelWidth = float32(rl.MeasureText(labelText+"...", s.fontSize))
+			if labelWidth <= maxLabelWidth {
+				labelText += "..."
+				break
+			}
+		}
+	}
+
+	rl.DrawText(labelText, int32(s.bounds.X), int32(labelY), s.fontSize, s.labelColor)
 	rl.DrawText(valueText, int32(s.bounds.X+s.bounds.Width-valueTextWidth), int32(labelY), s.fontSize, s.valueColor)
 
 	trackRect := s.trackRect()

@@ -66,8 +66,8 @@ func NewRendererConfigPanel(layout RendererConfigPanelConfig, initial RendererCo
 	panelConfig := DefaultPanelConfig()
 	panelConfig.X = layout.X
 	panelConfig.Y = layout.Y
-	panelConfig.Width = 320
-	panelConfig.Height = 360
+	panelConfig.Width = 340
+	panelConfig.Height = 380
 
 	panel := NewPanel(panelConfig).(*panel)
 
@@ -108,18 +108,22 @@ func NewRendererConfigPanel(layout RendererConfigPanelConfig, initial RendererCo
 	})
 
 	colorSectionY := toggleY + 140
+	labelWidth := float32(160)
+	previewX := layout.X + 10 + labelWidth + 8
+	buttonX := layout.X + 10 + labelWidth + 8 + 40 + 8
+
 	faceLabel := newColorLabel(layout.X+10, colorSectionY, "Face color", initial.FaceColor, initial.AlphaValue)
 	facePreview := NewColorPreview(ColorPreviewConfig{
-		X:      layout.X + 180,
+		X:      previewX,
 		Y:      colorSectionY,
-		Width:  36,
+		Width:  40,
 		Height: 20,
 		Color:  initial.FaceColor,
 	})
 	faceButton := NewButton(ButtonConfig{
-		X:           layout.X + 224,
+		X:           buttonX,
 		Y:           colorSectionY - 2,
-		Width:       80,
+		Width:       60,
 		Height:      24,
 		Text:        "Next",
 		NormalColor: rl.NewColor(60, 60, 60, 255),
@@ -130,16 +134,16 @@ func NewRendererConfigPanel(layout RendererConfigPanelConfig, initial RendererCo
 
 	edgeLabel := newColorLabel(layout.X+10, colorSectionY+32, "Edge color", initial.EdgeColor, 255)
 	edgePreview := NewColorPreview(ColorPreviewConfig{
-		X:      layout.X + 180,
+		X:      previewX,
 		Y:      colorSectionY + 32,
-		Width:  36,
+		Width:  40,
 		Height: 20,
 		Color:  initial.EdgeColor,
 	})
 	edgeButton := NewButton(ButtonConfig{
-		X:           layout.X + 224,
+		X:           buttonX,
 		Y:           colorSectionY + 30,
-		Width:       80,
+		Width:       60,
 		Height:      24,
 		Text:        "Next",
 		NormalColor: rl.NewColor(60, 60, 60, 255),
@@ -150,16 +154,16 @@ func NewRendererConfigPanel(layout RendererConfigPanelConfig, initial RendererCo
 
 	backgroundLabel := newColorLabel(layout.X+10, colorSectionY+64, "Background", initial.BackgroundColor, 255)
 	backgroundPreview := NewColorPreview(ColorPreviewConfig{
-		X:      layout.X + 180,
+		X:      previewX,
 		Y:      colorSectionY + 64,
-		Width:  36,
+		Width:  40,
 		Height: 20,
 		Color:  initial.BackgroundColor,
 	})
 	backgroundButton := NewButton(ButtonConfig{
-		X:           layout.X + 224,
+		X:           buttonX,
 		Y:           colorSectionY + 62,
-		Width:       80,
+		Width:       60,
 		Height:      24,
 		Text:        "Next",
 		NormalColor: rl.NewColor(60, 60, 60, 255),
@@ -171,7 +175,7 @@ func NewRendererConfigPanel(layout RendererConfigPanelConfig, initial RendererCo
 	alphaSlider := NewSlider(SliderConfig{
 		X:         layout.X + 10,
 		Y:         colorSectionY + 108,
-		Width:     300,
+		Width:     320,
 		Label:     "Face alpha",
 		Min:       0,
 		Max:       255,
@@ -242,9 +246,9 @@ func (rcp *RendererConfigPanel) Update() {
 	rcp.state.AlphaValue = uint8(math.Round(rcp.alphaSlider.Value()))
 
 	// Update labels to reflect color values
-	updateColorLabel(rcp.faceLabel, "Face color", rcp.state.FaceColor, rcp.state.AlphaValue)
-	updateColorLabel(rcp.edgeLabel, "Edge color", rcp.state.EdgeColor, 255)
-	updateColorLabel(rcp.backgroundLabel, "Background", rcp.state.BackgroundColor, 255)
+	rcp.updateColorLabelClipped(rcp.faceLabel, "Face color", rcp.state.FaceColor, rcp.state.AlphaValue)
+	rcp.updateColorLabelClipped(rcp.edgeLabel, "Edge color", rcp.state.EdgeColor, 255)
+	rcp.updateColorLabelClipped(rcp.backgroundLabel, "Background", rcp.state.BackgroundColor, 255)
 
 	if !rendererConfigEqual(prev, rcp.state) && rcp.onChange != nil {
 		rcp.onChange(rcp.state)
@@ -305,4 +309,13 @@ func updateColorLabel(label Label, prefix string, color rl.Color, alpha uint8) {
 
 func colorLabelText(prefix string, color rl.Color, alpha uint8) string {
 	return fmt.Sprintf("%s: R%3d G%3d B%3d A%3d", prefix, color.R, color.G, color.B, alpha)
+}
+
+func (rcp *RendererConfigPanel) updateColorLabelClipped(label Label, prefix string, color rl.Color, alpha uint8) {
+	text := colorLabelText(prefix, color, alpha)
+	if clipper, ok := label.(interface{ SetTextClipped(string, float32) }); ok {
+		clipper.SetTextClipped(text, 160)
+	} else {
+		label.SetText(text)
+	}
 }

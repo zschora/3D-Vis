@@ -67,6 +67,23 @@ func (l *label) SetText(text string) {
 	l.bounds.Width = float32(rl.MeasureText(l.text, l.fontSize))
 }
 
+// SetTextClipped sets the label text and clips it if it exceeds maxWidth
+func (l *label) SetTextClipped(text string, maxWidth float32) {
+	textWidth := float32(rl.MeasureText(text, l.fontSize))
+	if textWidth > maxWidth {
+		// Find the longest text that fits
+		for len(text) > 0 {
+			text = text[:len(text)-1]
+			textWidth = float32(rl.MeasureText(text+"...", l.fontSize))
+			if textWidth <= maxWidth {
+				text += "..."
+				break
+			}
+		}
+	}
+	l.SetText(text)
+}
+
 // GetText returns the label text
 func (l *label) GetText() string {
 	return l.text

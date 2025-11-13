@@ -37,7 +37,7 @@ func NewNavigationPanel(config NavigationPanelConfig, callbacks NavigationCallba
 	panelConfig := DefaultPanelConfig()
 	panelConfig.X = config.X
 	panelConfig.Y = config.Y
-	panelConfig.Width = 320
+	panelConfig.Width = 340
 	panelConfig.Height = 360
 
 	panel := NewPanel(panelConfig).(*panel)
@@ -53,7 +53,7 @@ func NewNavigationPanel(config NavigationPanelConfig, callbacks NavigationCallba
 	resetButton := NewButton(ButtonConfig{
 		X:           config.X + 10,
 		Y:           config.Y + 36,
-		Width:       240,
+		Width:       320,
 		Height:      32,
 		Text:        "Reset View",
 		NormalColor: rl.NewColor(55, 55, 55, 255),
@@ -143,8 +143,8 @@ func NewNavigationPanel(config NavigationPanelConfig, callbacks NavigationCallba
 	rotationSlider := NewSlider(SliderConfig{
 		X:         config.X + 10,
 		Y:         gridY + 3*(buttonSize+gap) + 16,
-		Width:     240,
-		Label:     "Rotate speed (rad/s)",
+		Width:     320,
+		Label:     "Rotate speed",
 		Min:       0.1,
 		Max:       2.5,
 		Value:     0.8,
@@ -154,7 +154,7 @@ func NewNavigationPanel(config NavigationPanelConfig, callbacks NavigationCallba
 	zoomSlider := NewSlider(SliderConfig{
 		X:         config.X + 10,
 		Y:         rotationSlider.GetBounds().Y + rotationSlider.GetBounds().Height + 24,
-		Width:     240,
+		Width:     320,
 		Label:     "Zoom speed",
 		Min:       30,
 		Max:       800,
